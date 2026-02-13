@@ -321,28 +321,28 @@
     </div>
 
     <script>
-        (function() {
-
+       (function() {
             document.addEventListener('DOMContentLoaded', function() {
                 const btn = document.getElementById('magicButton');
                 const playerSection = document.getElementById('playerSection');
                 const toast = document.getElementById('toastMessage');
-
-
                 let isRevealed = false;
 
+                // Устанавливаем начальную громкость для аудио (30%), т.к. атрибут volume не всегда поддерживается
+                const audioElement = document.querySelector('audio');
+                if (audioElement) {
+                    audioElement.volume = 0.3; 
+                }
 
                 function revealGift() {
                     if (!isRevealed) {
-      
-                        playerSection.classList.add('show');  
+                        playerSection.classList.add('show');
 
-           
                         setTimeout(() => {
                             toast.classList.add('show-toast');
                         }, 150);
 
-
+                        // небольшая встряска для сердечка
                         document.querySelector('.heart-container').style.animation = 'none';
                         setTimeout(() => {
                             document.querySelector('.heart-container').style.animation = 'float 3s infinite ease-in-out';
@@ -350,7 +350,7 @@
 
                         isRevealed = true;
                     } else {
-  
+         
                         toast.classList.remove('show-toast');
                         setTimeout(() => {
                             toast.classList.add('show-toast');
@@ -358,15 +358,11 @@
                     }
                 }
 
-
                 btn.addEventListener('click', revealGift);
-
-
                 btn.addEventListener('touchstart', function(e) {
-                    e.preventDefault();  
+                    e.preventDefault();
                     revealGift();
                 }, { passive: false });
-
             });
         })();
     </script>
